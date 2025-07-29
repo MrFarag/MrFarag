@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)file:///C:/Users/Tasneem/Desktop/index.html -->
+<html lang="ar" dir="rtl"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>منصة تعليمية - سبورة وكتاب تفاعلي</title>
+  <style>
+    /* Reset وأنماط أساسية */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background: url('Emt7an/Bg01.jpg') no-repeat center center fixed;
+      background-size: cover;
+      height: 100vh;
+      display: flex;
+      color: #333;
+    }
+
+    /* الشريط الجانبي */
+    .sidebar {
+      width: 180px;
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 15px 10px;
+      border-left: 1px solid #ddd;
+      overflow-y: auto;
+    }
+
+    .sidebar-header {
+      text-align: center;
+      padding-bottom: 15px;
+      margin-bottom: 15px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .student-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .student-item {
+      padding: 10px;
+      background-color: #f8f9fa;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-align: center;
+      font-size: 16px;
+    }
+
+    .student-item:hover {
+      background-color: #e9ecef;
+      transform: translateX(-5px);
+    }
+
+    /* المحتوى الرئيسي */
+    .main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 15px;
+    }
+
+    /* قسم السبورة وكتاب */
+    .workspace {
+      display: flex;
+      gap: 15px;
+      height: 70vh;
+      margin-bottom: 15px;
+    }
+
+    /* سبورة الرسم */
+    .whiteboard-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .whiteboard-tools {
+      padding: 10px;
+      background-color: #2c3e50;
+      display: flex;
+      gap: 10px;
+    }
+
+    .tool-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #34495e;
+      color: white;
+    }
+
+    .tool-btn.active {
+      background-color: #3498db;
+    }
+
+    .color-picker {
+      width: 30px;
+      height: 30px;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    #whiteboard {
+      flex: 1;
+      background-color: #fff;
+      cursor: crosshair;
+    }
+
+    /* عرض الكتاب */
+    .book-container {
+      flex: 1;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .book-controls {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 10;
+      display: flex;
+      gap: 5px;
+    }
+
+    .zoom-btn {
+      width: 35px;
+      height: 35px;
+      background-color: rgba(0, 0, 0, 0.6);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .book-view {
+      .book-view {
+  /* أضف هذه الخصائص: */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  overflow: auto; /* للسماح بعرض الصورة كاملة مع إمكانية التمرير */
+}
+    }
+
+    #bookImage {
+       max-width: 100%;  /* هذه الخاصية تمنع التجاوز ولكنها قد تصغر الصورة */
+  max-height: 100%; /* نفس المشكلة هنا */
+  /* استبدلها بـ: */
+  width: auto;
+  height: auto;
+  object-fit: contain;
+    }
+
+    .page-indicator {
+      position: absolute;
+      bottom: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 5px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+    }
+
+    /* أدوات التحكم السفلية */
+    .controls {
+      display: flex;
+      gap: 15px;
+      margin-top: auto;
+    }
+
+    .nav-btn {
+      flex: 1;
+      padding: 12px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .nav-btn:hover {
+      background-color: #2980b9;
+    }
+
+    /* قسم التعليقات */
+    .comments-section {
+      height: 20vh;
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      margin-top: 15px;
+      overflow: hidden;
+    }
+
+    /* تصميم متجاوب */
+    @media (max-width: 992px) {
+      .workspace {
+        flex-direction: column;
+        height: auto;
+      }
+      .whiteboard-container,
+      .book-container {
+        min-height: 300px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+      }
+      .sidebar {
+        width: 100%;
+        height: auto;
+        border-left: none;
+        border-bottom: 1px solid #ddd;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- الشريط الجانبي للأسماء -->
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <h3>قائمة الطلاب</h3>
+    </div>
+    <div class="student-list">
+      <div class="student-item">أحمد محمد</div>
+      <div class="student-item">فاطمة الزهراء</div>
+      <div class="student-item">محمد علي</div>
+      <div class="student-item">ليلى أحمد</div>
+      <div class="student-item">سارة خالد</div>
+    </div>
+  </div>
+
+  <!-- المحتوى الرئيسي -->
+  <div class="main-content">
+    <!-- منطقة العمل (السبورة + الكتاب) -->
+    <div class="workspace">
+      <!-- سبورة الرسم -->
+      <div class="whiteboard-container">
+        <div class="whiteboard-tools">
+          <button class="tool-btn active" data-tool="pen">✏️</button>
+          <button class="tool-btn" data-tool="eraser">🧽</button>
+          <input type="color" class="color-picker" value="#000000">
+          <button class="tool-btn" id="clearWhiteboard">🗑️</button>
+        </div>
+        <canvas id="whiteboard" width="848" height="727"></canvas>
+      </div>
+
+      <!-- عرض الكتاب -->
+      <div class="book-container">
+        <div class="book-controls">
+          <button class="zoom-btn" onclick="zoomIn()">+</button>
+          <button class="zoom-btn" onclick="zoomOut()">-</button>
+          <button class="zoom-btn" onclick="resetZoom()">↻</button>
+        </div>
+        <div class="book-view">
+          <img id="bookImage" src="./منصة تعليمية - سبورة وكتاب تفاعلي_files/005.jpg" alt="صفحة الكتاب" style="transform: scale(1);">
+        </div>
+        <div class="page-indicator">الصفحة 5 من 10</div>
+      </div>
+    </div>
+
+    <!-- أدوات التحكم -->
+    <div class="controls">
+      <button class="nav-btn" onclick="prevPage()">← الصفحة السابقة</button>
+      <button class="nav-btn" onclick="nextPage()">الصفحة التالية →</button>
+    </div>
+
+    <!-- قسم التعليقات -->
+    <div class="comments-section">
+      <iframe src="./منصة تعليمية - سبورة وكتاب تفاعلي_files/comments.html" width="100%" height="100%" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+      </iframe>
+    </div>
+  </div>
+
+  <script>
+    // تكوين الكتاب
+    const totalPages = 10;
+    let currentPage = 1;
+    let currentZoom = 1;
+
+    // تهيئة سبورة الرسم
+    const canvas = document.getElementById('whiteboard');
+    const ctx = canvas.getContext('2d');
+    let isDrawing = false;
+    let currentTool = 'pen';
+    let currentColor = '#000000';
+    let lineWidth = 3;
+
+    // ضبط حجم السبورة
+    function resizeCanvas() {
+      const container = canvas.parentElement;
+      canvas.width = container.clientWidth;
+      canvas.height = container.clientHeight;
+      
+      // إعادة رسم المحتوى عند تغيير الحجم
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+
+    // تحديث صفحة الكتاب
+    function updatePage() {
+      const pageNum = currentPage.toString().padStart(3, '0');
+      document.getElementById('bookImage').src = `Emt7an-Rev/${pageNum}.jpg`;
+      document.querySelector('.page-indicator').textContent = `الصفحة ${currentPage} من ${totalPages}`;
+      
+      // إعادة ضبط التكبير عند تغيير الصفحة
+      currentZoom = 1;
+      document.getElementById('bookImage').style.transform = `scale(${currentZoom})`;
+    }
+
+    // التنقل بين الصفحات
+    function nextPage() {
+      if (currentPage < totalPages) {
+        currentPage++;
+        updatePage();
+      }
+    }
+
+    function prevPage() {
+      if (currentPage > 1) {
+        currentPage--;
+        updatePage();
+      }
+    }
+
+    // التحكم في التكبير/التصغير
+    function zoomIn() {
+      if (currentZoom < 3) {
+        currentZoom += 0.1;
+        applyZoom();
+      }
+    }
+
+    function zoomOut() {
+      if (currentZoom > 0.5) {
+        currentZoom -= 0.1;
+        applyZoom();
+      }
+    }
+
+    function resetZoom() {
+      currentZoom = 1;
+      applyZoom();
+    }
+
+    function applyZoom() {
+      document.getElementById('bookImage').style.transform = `scale(${currentZoom})`;
+    }
+
+    // أحداث سبورة الرسم
+    function startDrawing(e) {
+      isDrawing = true;
+      draw(e);
+    }
+
+    function draw(e) {
+      if (!isDrawing) return;
+      
+      ctx.lineCap = 'round';
+      
+      if (currentTool === 'pen') {
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.strokeStyle = currentColor;
+        ctx.lineWidth = lineWidth;
+      } else if (currentTool === 'eraser') {
+        ctx.globalCompositeOperation = 'destination-out';
+        ctx.lineWidth = lineWidth * 3;
+      }
+      
+      ctx.lineTo(
+        e.clientX - canvas.getBoundingClientRect().left,
+        e.clientY - canvas.getBoundingClientRect().top
+      );
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(
+        e.clientX - canvas.getBoundingClientRect().left,
+        e.clientY - canvas.getBoundingClientRect().top
+      );
+    }
+
+    function stopDrawing() {
+      isDrawing = false;
+      ctx.beginPath();
+    }
+
+    // تهيئة الصفحة
+    window.addEventListener('load', () => {
+      resizeCanvas();
+      updatePage();
+      
+      // أحداث سبورة الرسم
+      canvas.addEventListener('mousedown', startDrawing);
+      canvas.addEventListener('mousemove', draw);
+      canvas.addEventListener('mouseup', stopDrawing);
+      canvas.addEventListener('mouseout', stopDrawing);
+      
+      // أحداث اللمس للأجهزة اللوحية
+      canvas.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        const touch = e.touches[0];
+        const mouseEvent = new MouseEvent('mousedown', {
+          clientX: touch.clientX,
+          clientY: touch.clientY
+        });
+        canvas.dispatchEvent(mouseEvent);
+      });
+      
+      canvas.addEventListener('touchmove', (e) => {
+        e.preventDefault();
+        const touch = e.touches[0];
+        const mouseEvent = new MouseEvent('mousemove', {
+          clientX: touch.clientX,
+          clientY: touch.clientY
+        });
+        canvas.dispatchEvent(mouseEvent);
+      });
+      
+      canvas.addEventListener('touchend', stopDrawing);
+      
+      // تغيير الأدوات
+      document.querySelectorAll('.tool-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentTool = btn.dataset.tool;
+        });
+      });
+      
+      // تغيير اللون
+      document.querySelector('.color-picker').addEventListener('input', (e) => {
+        currentColor = e.target.value;
+      });
+      
+      // مسح السبورة
+      document.getElementById('clearWhiteboard').addEventListener('click', () => {
+        if (confirm('هل تريد مسح السبورة بالكامل؟')) {
+          ctx.fillStyle = '#ffffff';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+      });
+      
+      // التنقل بلوحة المفاتيح
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') nextPage();
+        if (e.key === 'ArrowLeft') prevPage();
+        if (e.key === '+') zoomIn();
+        if (e.key === '-') zoomOut();
+        if (e.key === '0') resetZoom();
+      });
+    });
+    
+    // إعادة ضبط حجم السبورة عند تغيير حجم النافذة
+    window.addEventListener('resize', resizeCanvas);
+  </script>
+
+</body></html>
