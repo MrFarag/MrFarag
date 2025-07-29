@@ -1,12 +1,11 @@
-
 <!DOCTYPE html>
-<!-- saved from url=(0043)file:///C:/Users/Tasneem/Desktop/index.html -->
-<html lang="ar" dir="rtl"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>منصة تعليمية - سبورة وكتاب تفاعلي</title>
+  <title>منصة تعليمية - كتاب تفاعلي</title>
   <style>
-    /* Reset وأنماط أساسية */
+    /* أنماط أساسية */
     * {
       margin: 0;
       padding: 0;
@@ -15,48 +14,62 @@
     }
     
     body {
-      background: url('Emt7an/Bg01.jpg') no-repeat center center fixed;
-      background-size: cover;
-      height: 100vh;
-      display: flex;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
       color: #333;
+    }
+
+    /* الهيكل الرئيسي */
+    .container {
+      display: flex;
+      min-height: 100vh;
     }
 
     /* الشريط الجانبي */
     .sidebar {
-      width: 180px;
-      background-color: rgba(255, 255, 255, 0.9);
-      padding: 15px 10px;
-      border-left: 1px solid #ddd;
-      overflow-y: auto;
+      width: 250px;
+      background-color: #2c3e50;
+      color: white;
+      padding: 20px;
+      transition: all 0.3s;
     }
 
     .sidebar-header {
       text-align: center;
-      padding-bottom: 15px;
-      margin-bottom: 15px;
-      border-bottom: 1px solid #eee;
+      padding-bottom: 20px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .sidebar-header h2 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
     }
 
     .student-list {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 10px;
     }
 
     .student-item {
-      padding: 10px;
-      background-color: #f8f9fa;
+      padding: 12px 15px;
+      background-color: rgba(255,255,255,0.1);
       border-radius: 6px;
       cursor: pointer;
       transition: all 0.3s;
-      text-align: center;
       font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
     .student-item:hover {
-      background-color: #e9ecef;
-      transform: translateX(-5px);
+      background-color: rgba(255,255,255,0.2);
+    }
+
+    .student-item i {
+      font-size: 18px;
     }
 
     /* المحتوى الرئيسي */
@@ -64,89 +77,53 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      padding: 15px;
+      padding: 20px;
     }
 
-    /* قسم السبورة وكتاب */
-    .workspace {
-      display: flex;
-      gap: 15px;
-      height: 70vh;
-      margin-bottom: 15px;
-    }
-
-    /* سبورة الرسم */
-    .whiteboard-container {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      background-color: #fff;
+    /* عنوان الصفحة */
+    .page-header {
+      background-color: white;
+      padding: 15px 20px;
       border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      margin-bottom: 20px;
     }
 
-    .whiteboard-tools {
-      padding: 10px;
-      background-color: #2c3e50;
-      display: flex;
-      gap: 10px;
-    }
-
-    .tool-btn {
-      width: 30px;
-      height: 30px;
-      border-radius: 4px;
-      border: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: #34495e;
-      color: white;
-    }
-
-    .tool-btn.active {
-      background-color: #3498db;
-    }
-
-    .color-picker {
-      width: 30px;
-      height: 30px;
-      border: none;
-      cursor: pointer;
-      padding: 0;
-    }
-
-    #whiteboard {
-      flex: 1;
-      background-color: #fff;
-      cursor: crosshair;
+    .page-header h1 {
+      font-size: 1.8rem;
+      color: #2c3e50;
     }
 
     /* عرض الكتاب */
     .book-container {
       flex: 1;
-      background-color: #fff;
+      background-color: white;
       border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
       position: relative;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
     }
 
     .book-controls {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      z-index: 10;
+      padding: 15px;
+      background-color: #f8f9fa;
       display: flex;
-      gap: 5px;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #eee;
     }
 
-    .zoom-btn {
-      width: 35px;
-      height: 35px;
-      background-color: rgba(0, 0, 0, 0.6);
+    .control-group {
+      display: flex;
+      gap: 10px;
+    }
+
+    .control-btn {
+      width: 40px;
+      height: 40px;
+      background-color: #3498db;
       color: white;
       border: none;
       border-radius: 50%;
@@ -155,179 +132,202 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: all 0.3s;
     }
 
-    .book-view {
-      .book-view {
-  /* أضف هذه الخصائص: */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  overflow: auto; /* للسماح بعرض الصورة كاملة مع إمكانية التمرير */
-}
+    .control-btn:hover {
+      background-color: #2980b9;
+      transform: scale(1.05);
     }
 
-    #bookImage {
-       max-width: 100%;  /* هذه الخاصية تمنع التجاوز ولكنها قد تصغر الصورة */
-  max-height: 100%; /* نفس المشكلة هنا */
-  /* استبدلها بـ: */
-  width: auto;
-  height: auto;
-  object-fit: contain;
+    .control-btn.secondary {
+      background-color: #e74c3c;
+    }
+
+    .control-btn.secondary:hover {
+      background-color: #c0392b;
     }
 
     .page-indicator {
-      position: absolute;
-      bottom: 15px;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: rgba(0, 0, 0, 0.7);
+      background-color: #2c3e50;
       color: white;
-      padding: 5px 20px;
+      padding: 8px 20px;
       border-radius: 20px;
       font-size: 14px;
     }
 
-    /* أدوات التحكم السفلية */
-    .controls {
-      display: flex;
-      gap: 15px;
-      margin-top: auto;
-    }
-
-    .nav-btn {
+    .book-view {
       flex: 1;
-      padding: 12px;
-      background-color: #3498db;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: background-color 0.3s;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      overflow: auto;
+      position: relative;
     }
 
-    .nav-btn:hover {
-      background-color: #2980b9;
+    #bookImage {
+      max-width: 100%;
+      max-height: 100%;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
     }
 
     /* قسم التعليقات */
     .comments-section {
-      height: 20vh;
-      background-color: #f8f9fa;
+      margin-top: 20px;
+      background-color: white;
       border-radius: 8px;
-      margin-top: 15px;
-      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      padding: 15px;
+    }
+
+    .comments-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .comments-header h3 {
+      font-size: 1.2rem;
+      color: #2c3e50;
     }
 
     /* تصميم متجاوب */
     @media (max-width: 992px) {
-      .workspace {
-        flex-direction: column;
-        height: auto;
-      }
-      .whiteboard-container,
-      .book-container {
-        min-height: 300px;
-      }
-    }
-
-    @media (max-width: 768px) {
-      body {
+      .container {
         flex-direction: column;
       }
       .sidebar {
         width: 100%;
-        height: auto;
-        border-left: none;
-        border-bottom: 1px solid #ddd;
+      }
+      .book-view {
+        padding: 10px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .control-group {
+        gap: 5px;
+      }
+      .control-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 14px;
+      }
+      .page-indicator {
+        font-size: 12px;
+        padding: 5px 15px;
       }
     }
   </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-  <!-- الشريط الجانبي للأسماء -->
-  <div class="sidebar">
-    <div class="sidebar-header">
-      <h3>قائمة الطلاب</h3>
-    </div>
-    <div class="student-list">
-      <div class="student-item">أحمد محمد</div>
-      <div class="student-item">فاطمة الزهراء</div>
-      <div class="student-item">محمد علي</div>
-      <div class="student-item">ليلى أحمد</div>
-      <div class="student-item">سارة خالد</div>
-    </div>
-  </div>
-
-  <!-- المحتوى الرئيسي -->
-  <div class="main-content">
-    <!-- منطقة العمل (السبورة + الكتاب) -->
-    <div class="workspace">
-      <!-- سبورة الرسم -->
-      <div class="whiteboard-container">
-        <div class="whiteboard-tools">
-          <button class="tool-btn active" data-tool="pen">✏️</button>
-          <button class="tool-btn" data-tool="eraser">🧽</button>
-          <input type="color" class="color-picker" value="#000000">
-          <button class="tool-btn" id="clearWhiteboard">🗑️</button>
+  <!-- الهيكل الرئيسي -->
+  <div class="container">
+    <!-- الشريط الجانبي -->
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <h2>الفصل الدراسي</h2>
+        <p>قائمة الطلاب</p>
+      </div>
+      <div class="student-list">
+        <div class="student-item">
+          <i class="fas fa-user"></i>
+          <span>أحمد محمد</span>
         </div>
-        <canvas id="whiteboard" width="848" height="727"></canvas>
+        <div class="student-item">
+          <i class="fas fa-user"></i>
+          <span>فاطمة الزهراء</span>
+        </div>
+        <div class="student-item">
+          <i class="fas fa-user"></i>
+          <span>محمد علي</span>
+        </div>
+        <div class="student-item">
+          <i class="fas fa-user"></i>
+          <span>ليلى أحمد</span>
+        </div>
+        <div class="student-item">
+          <i class="fas fa-user"></i>
+          <span>سارة خالد</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- المحتوى الرئيسي -->
+    <div class="main-content">
+      <!-- عنوان الصفحة -->
+      <div class="page-header">
+        <h1>الكتاب التفاعلي - الرياضيات</h1>
       </div>
 
       <!-- عرض الكتاب -->
       <div class="book-container">
         <div class="book-controls">
-          <button class="zoom-btn" onclick="zoomIn()">+</button>
-          <button class="zoom-btn" onclick="zoomOut()">-</button>
-          <button class="zoom-btn" onclick="resetZoom()">↻</button>
+          <div class="control-group">
+            <button class="control-btn" onclick="prevPage()">
+              <i class="fas fa-arrow-right"></i>
+            </button>
+            <button class="control-btn" onclick="nextPage()">
+              <i class="fas fa-arrow-left"></i>
+            </button>
+          </div>
+          
+          <div class="page-indicator">الصفحة 1 من 10</div>
+          
+          <div class="control-group">
+            <button class="control-btn" onclick="zoomIn()">
+              <i class="fas fa-search-plus"></i>
+            </button>
+            <button class="control-btn" onclick="zoomOut()">
+              <i class="fas fa-search-minus"></i>
+            </button>
+            <button class="control-btn" onclick="resetZoom()">
+              <i class="fas fa-expand"></i>
+            </button>
+          </div>
         </div>
+
         <div class="book-view">
-          <img id="bookImage" src="./منصة تعليمية - سبورة وكتاب تفاعلي_files/005.jpg" alt="صفحة الكتاب" style="transform: scale(1);">
+          <img id="bookImage" src="Emt7an-Rev/001.jpg" alt="صفحة الكتاب" style="transform: scale(1);">
         </div>
-        <div class="page-indicator">الصفحة 5 من 10</div>
+      </div>
+
+      <!-- قسم التعليقات -->
+      <div class="comments-section">
+        <div class="comments-header">
+          <h3>تعليقات الطلاب</h3>
+          <button class="control-btn" onclick="refreshComments()">
+            <i class="fas fa-sync-alt"></i>
+          </button>
+        </div>
+        
+        <!-- تعليقات فيسبوك -->
+        <div class="fb-comments" 
+             data-href="https://your-username.github.io/your-repo/" 
+             data-width="100%" 
+             data-numposts="5">
+        </div>
       </div>
     </div>
-
-    <!-- أدوات التحكم -->
-    <div class="controls">
-      <button class="nav-btn" onclick="prevPage()">← الصفحة السابقة</button>
-      <button class="nav-btn" onclick="nextPage()">الصفحة التالية →</button>
-    </div>
-
-    <!-- قسم التعليقات -->
-    <div class="comments-section">
-      <iframe src="./منصة تعليمية - سبورة وكتاب تفاعلي_files/comments.html" width="100%" height="100%" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
-      </iframe>
-    </div>
   </div>
+
+  <!-- SDK فيسبوك -->
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous" 
+          src="https://connect.facebook.net/ar_AR/sdk.js#xfbml=1&version=v12.0&appId=YOUR_APP_ID&autoLogAppEvents=1">
+  </script>
 
   <script>
     // تكوين الكتاب
     const totalPages = 10;
     let currentPage = 1;
     let currentZoom = 1;
-
-    // تهيئة سبورة الرسم
-    const canvas = document.getElementById('whiteboard');
-    const ctx = canvas.getContext('2d');
-    let isDrawing = false;
-    let currentTool = 'pen';
-    let currentColor = '#000000';
-    let lineWidth = 3;
-
-    // ضبط حجم السبورة
-    function resizeCanvas() {
-      const container = canvas.parentElement;
-      canvas.width = container.clientWidth;
-      canvas.height = container.clientHeight;
-      
-      // إعادة رسم المحتوى عند تغيير الحجم
-      ctx.fillStyle = '#ffffff';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-    }
 
     // تحديث صفحة الكتاب
     function updatePage() {
@@ -338,6 +338,11 @@
       // إعادة ضبط التكبير عند تغيير الصفحة
       currentZoom = 1;
       document.getElementById('bookImage').style.transform = `scale(${currentZoom})`;
+      
+      // تحديث تعليقات فيسبوك عند تغيير الصفحة
+      if(typeof FB !== 'undefined') {
+        FB.XFBML.parse();
+      }
     }
 
     // التنقل بين الصفحات
@@ -379,111 +384,24 @@
       document.getElementById('bookImage').style.transform = `scale(${currentZoom})`;
     }
 
-    // أحداث سبورة الرسم
-    function startDrawing(e) {
-      isDrawing = true;
-      draw(e);
-    }
-
-    function draw(e) {
-      if (!isDrawing) return;
-      
-      ctx.lineCap = 'round';
-      
-      if (currentTool === 'pen') {
-        ctx.globalCompositeOperation = 'source-over';
-        ctx.strokeStyle = currentColor;
-        ctx.lineWidth = lineWidth;
-      } else if (currentTool === 'eraser') {
-        ctx.globalCompositeOperation = 'destination-out';
-        ctx.lineWidth = lineWidth * 3;
+    // تحديث التعليقات
+    function refreshComments() {
+      if(typeof FB !== 'undefined') {
+        FB.XFBML.parse();
       }
-      
-      ctx.lineTo(
-        e.clientX - canvas.getBoundingClientRect().left,
-        e.clientY - canvas.getBoundingClientRect().top
-      );
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(
-        e.clientX - canvas.getBoundingClientRect().left,
-        e.clientY - canvas.getBoundingClientRect().top
-      );
     }
 
-    function stopDrawing() {
-      isDrawing = false;
-      ctx.beginPath();
-    }
+    // التنقل بلوحة المفاتيح
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') prevPage();
+      if (e.key === 'ArrowLeft') nextPage();
+      if (e.key === '+') zoomIn();
+      if (e.key === '-') zoomOut();
+      if (e.key === '0') resetZoom();
+    });
 
     // تهيئة الصفحة
-    window.addEventListener('load', () => {
-      resizeCanvas();
-      updatePage();
-      
-      // أحداث سبورة الرسم
-      canvas.addEventListener('mousedown', startDrawing);
-      canvas.addEventListener('mousemove', draw);
-      canvas.addEventListener('mouseup', stopDrawing);
-      canvas.addEventListener('mouseout', stopDrawing);
-      
-      // أحداث اللمس للأجهزة اللوحية
-      canvas.addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        const touch = e.touches[0];
-        const mouseEvent = new MouseEvent('mousedown', {
-          clientX: touch.clientX,
-          clientY: touch.clientY
-        });
-        canvas.dispatchEvent(mouseEvent);
-      });
-      
-      canvas.addEventListener('touchmove', (e) => {
-        e.preventDefault();
-        const touch = e.touches[0];
-        const mouseEvent = new MouseEvent('mousemove', {
-          clientX: touch.clientX,
-          clientY: touch.clientY
-        });
-        canvas.dispatchEvent(mouseEvent);
-      });
-      
-      canvas.addEventListener('touchend', stopDrawing);
-      
-      // تغيير الأدوات
-      document.querySelectorAll('.tool-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          currentTool = btn.dataset.tool;
-        });
-      });
-      
-      // تغيير اللون
-      document.querySelector('.color-picker').addEventListener('input', (e) => {
-        currentColor = e.target.value;
-      });
-      
-      // مسح السبورة
-      document.getElementById('clearWhiteboard').addEventListener('click', () => {
-        if (confirm('هل تريد مسح السبورة بالكامل؟')) {
-          ctx.fillStyle = '#ffffff';
-          ctx.fillRect(0, 0, canvas.width, canvas.height);
-        }
-      });
-      
-      // التنقل بلوحة المفاتيح
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowRight') nextPage();
-        if (e.key === 'ArrowLeft') prevPage();
-        if (e.key === '+') zoomIn();
-        if (e.key === '-') zoomOut();
-        if (e.key === '0') resetZoom();
-      });
-    });
-    
-    // إعادة ضبط حجم السبورة عند تغيير حجم النافذة
-    window.addEventListener('resize', resizeCanvas);
+    window.addEventListener('load', updatePage);
   </script>
-
-</body></html>
+</body>
+</html>
