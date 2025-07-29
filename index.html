@@ -3,7 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- علامات Open Graph الأساسية -->
+  <meta property="og:title" content="الكتاب التفاعلي للرياضيات | تأليف محمد فرج">
+  <meta property="og:description" content="منصة تعليمية شاملة تحتوي على شرح تفاعلي لدروس الرياضيات للصف الثالث الإعدادي">
+  <meta property="og:image" content="https://mrfarag.github.io/MrFarag/images/cover.jpg">
+  <meta property="og:url" content="https://mrfarag.github.io/MrFarag/">
+  <meta property="og:type" content="website">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="غلاف الكتاب التفاعلي للرياضيات">
+  <meta property="og:locale" content="ar_AR">
+  <meta property="og:site_name" content="منصة MrFarag التعليمية">
+  
+  <!-- علامات Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="الكتاب التفاعلي للرياضيات | تأليف محمد فرج">
+  <meta name="twitter:description" content="منصة تعليمية شاملة تحتوي على شرح تفاعلي لدروس الرياضيات">
+  <meta name="twitter:image" content="https://mrfarag.github.io/MrFarag/images/cover.jpg">
+  
   <title>منصة تعليمية - كتاب تفاعلي</title>
+  
   <style>
     /* أنماط أساسية */
     * {
@@ -311,7 +331,8 @@
         <div class="fb-comments" 
              data-href="https://mrfarag.github.io/MrFarag/" 
              data-width="100%" 
-             data-numposts="5">
+             data-numposts="5"
+             data-colorscheme="light">
         </div>
       </div>
     </div>
@@ -319,8 +340,32 @@
 
   <!-- SDK فيسبوك -->
   <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous" 
-          src="https://connect.facebook.net/ar_AR/sdk.js#xfbml=1&version=v12.0&appId=1465626834621893&autoLogAppEvents=1">
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1465626834621893',
+        cookie     : true,
+        xfbml      : true,
+        version    : 'v19.0'
+      });
+        
+      FB.AppEvents.logPageView();   
+      
+      // تحميل التعليقات فورياً
+      setTimeout(function(){
+        FB.XFBML.parse();
+      }, 1000);
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "https://connect.facebook.net/ar_AR/sdk.js";
+       js.async = true;
+       js.defer = true;
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
   </script>
 
   <script>
@@ -401,7 +446,18 @@
     });
 
     // تهيئة الصفحة
-    window.addEventListener('load', updatePage);
+    document.addEventListener('DOMContentLoaded', function() {
+      updatePage();
+      
+      // إضافة تأثير عند تحميل الصورة
+      document.getElementById('bookImage').onload = function() {
+        this.style.opacity = '0';
+        setTimeout(() => {
+          this.style.transition = 'opacity 0.5s ease';
+          this.style.opacity = '1';
+        }, 100);
+      };
+    });
   </script>
 </body>
 </html>
