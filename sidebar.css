@@ -1,0 +1,45 @@
+/* الشريط الجانبي */
+.sidebar {
+  width: 180px;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 15px 10px;
+  border-left: 1px solid #ddd;
+  overflow-y: auto;
+}
+
+.sidebar-header {
+  text-align: center;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.student-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.student-item {
+  padding: 10px;
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-align: center;
+  font-size: 16px;
+}
+
+.student-item:hover {
+  background-color: #e9ecef;
+  transform: translateX(-5px);
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    border-left: none;
+    border-bottom: 1px solid #ddd;
+  }
+}

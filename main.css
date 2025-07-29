@@ -1,0 +1,81 @@
+/* Reset وأنماط أساسية */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background: url('../Emt7an/Bg01.jpg') no-repeat center center fixed;
+  background-size: cover;
+  height: 100vh;
+  display: flex;
+  color: #333;
+}
+
+/* المحتوى الرئيسي */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+}
+
+/* قسم السبورة وكتاب */
+.workspace {
+  display: flex;
+  gap: 15px;
+  height: 70vh;
+  margin-bottom: 15px;
+}
+
+/* أدوات التحكم السفلية */
+.controls {
+  display: flex;
+  gap: 15px;
+  margin-top: auto;
+}
+
+.nav-btn {
+  flex: 1;
+  padding: 12px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.nav-btn:hover {
+  background-color: #2980b9;
+}
+
+/* قسم التعليقات */
+.comments-section {
+  height: 20vh;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  margin-top: 15px;
+  overflow: hidden;
+}
+
+/* تصميم متجاوب */
+@media (max-width: 992px) {
+  .workspace {
+    flex-direction: column;
+    height: auto;
+  }
+  .whiteboard-container,
+  .book-container {
+    min-height: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    flex-direction: column;
+  }
+}
