@@ -3,548 +3,112 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>منصة MrFarag التعليمية</title>
   
-  <!-- علامات Open Graph الأساسية -->
-  <meta property="og:title" content="فيزياء 3 ث ">
-  <meta property="og:description" content="منصة تعليمية شاملة تحتوي على شرح تفاعلي لدروس الفيزياء للصف الثالث الثانوي">
-  <meta property="og:image" content="https://mrfarag.github.io/MrFarag/images/cover.jpg">
+  <!-- علامات فيسبوك الأساسية -->
+  <meta property="fb:app_id" content="1465626834621893">
   <meta property="og:url" content="https://mrfarag.github.io/MrFarag/">
   <meta property="og:type" content="website">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="غلاف الكتاب ">
-  <meta property="og:locale" content="ar_AR">
-  <meta property="og:site_name" content="منصة MrFarag التعليمية">
-  
-  <!-- علامات Twitter -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="افيزياء 3ث">
-  <meta name="twitter:description" content="منصة تعليمية شاملة تحتوي على شرح تفاعلي لدروس الفيزياء">
-  <meta name="twitter:image" content="https://mrfarag.github.io/MrFarag/images/cover.jpg">
-  
-  <!-- علامة تحقق فيسبوك -->
-  <meta property="fb:app_id" content="1465626834621893">
-  
-  <title>منصة تعليمية - كتاب تفاعلي</title>
-  
+  <meta property="og:title" content="منصة MrFarag التعليمية">
+  <meta property="og:description" content="شرح تفاعلي لدروس الفيزياء للصف الثالث الثانوي">
+  <meta property="og:image" content="https://mrfarag.github.io/MrFarag/images/cover.jpg">
+
   <style>
-    /* أنماط أساسية */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    
+    /* أنماط الصفحة الأساسية */
     body {
-      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-      min-height: 100vh;
-      color: #333;
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 20px;
+      background-color: #f5f5f5;
     }
-
-    /* الهيكل الرئيسي */
     .container {
-      display: flex;
-      min-height: 100vh;
-    }
-
-    /* الشريط الجانبي */
-    .sidebar {
-      width: 250px;
-      background-color: #2c3e50;
-      color: white;
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
       padding: 20px;
-      transition: all 0.3s;
-    }
-
-    .sidebar-header {
-      text-align: center;
-      padding-bottom: 20px;
-      margin-bottom: 20px;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .sidebar-header h2 {
-      font-size: 1.5rem;
-      margin-bottom: 10px;
-    }
-
-    .student-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .student-item {
-      padding: 12px 15px;
-      background-color: rgba(255,255,255,0.1);
-      border-radius: 6px;
-      cursor: pointer;
-      transition: all 0.3s;
-      font-size: 16px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .student-item:hover {
-      background-color: rgba(255,255,255,0.2);
-    }
-
-    .student-item i {
-      font-size: 18px;
-    }
-
-    /* المحتوى الرئيسي */
-    .main-content {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      padding: 20px;
-    }
-
-    /* عنوان الصفحة */
-    .page-header {
-      background-color: white;
-      padding: 15px 20px;
       border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      margin-bottom: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-
-    .page-header h1 {
-      font-size: 1.8rem;
-      color: #2c3e50;
-    }
-
-    /* عرض الكتاب */
-    .book-container {
-      flex: 1;
-      background-color: white;
-      border-radius: 8px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .book-controls {
-      padding: 15px;
-      background-color: #f8f9fa;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #eee;
-    }
-
-    .control-group {
-      display: flex;
-      gap: 10px;
-    }
-
-    .control-btn {
-      width: 40px;
-      height: 40px;
-      background-color: #3498db;
-      color: white;
-      border: none;
-      border-radius: 50%;
-      font-size: 16px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s;
-    }
-
-    .control-btn:hover {
-      background-color: #2980b9;
-      transform: scale(1.05);
-    }
-
-    .control-btn.secondary {
-      background-color: #e74c3c;
-    }
-
-    .control-btn.secondary:hover {
-      background-color: #c0392b;
-    }
-
-    .page-indicator {
-      background-color: #2c3e50;
-      color: white;
-      padding: 8px 20px;
-      border-radius: 20px;
-      font-size: 14px;
-    }
-
-    .book-view {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      overflow: auto;
-      position: relative;
-    }
-
-    #bookImage {
-      max-width: 100%;
-      max-height: 100%;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease;
-    }
-
-    /* قسم التعليقات */
-    .comments-section {
-      margin-top: 20px;
-      background-color: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      padding: 15px;
-    }
-
-    .comments-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 15px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid #eee;
-    }
-
-    .comments-header h3 {
-      font-size: 1.2rem;
-      color: #2c3e50;
-    }
-
-    /* تحسينات لتعليقات الفيسبوك */
     .fb-comments {
-      margin-top: 15px;
+      margin-top: 30px;
       background: #f9f9f9;
       padding: 15px;
       border-radius: 8px;
     }
-
-    .fb-comments span {
-      width: 100% !important;
-    }
-
-    /* زر تسجيل الدخول البديل */
-    .fb-login-button {
-      background: #4267B2;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 14px;
-      margin-top: 10px;
-      display: inline-block;
-    }
-
-    .fb-login-button:hover {
-      background: #365899;
-    }
-
-    /* تصميم متجاوب */
-    @media (max-width: 992px) {
-      .container {
-        flex-direction: column;
-      }
-      .sidebar {
-        width: 100%;
-      }
-      .book-view {
-        padding: 10px;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .control-group {
-        gap: 5px;
-      }
-      .control-btn {
-        width: 35px;
-        height: 35px;
-        font-size: 14px;
-      }
-      .page-indicator {
-        font-size: 12px;
-        padding: 5px 15px;
-      }
-      
-      .fb-comments {
-        padding: 10px;
-      }
-    }
   </style>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-  <!-- الهيكل الرئيسي -->
   <div class="container">
-    <!-- الشريط الجانبي -->
-    <div class="sidebar">
-      <div class="sidebar-header">
-        <h2>الفصل الدراسي</h2>
-        <p>قائمة الطلاب</p>
-      </div>
-      <div class="student-list">
-        <div class="student-item">
-          <i class="fas fa-user"></i>
-          <span>أحمد محمد</span>
-        </div>
-        <div class="student-item">
-          <i class="fas fa-user"></i>
-          <span>فاطمة الزهراء</span>
-        </div>
-        <div class="student-item">
-          <i class="fas fa-user"></i>
-          <span>محمد علي</span>
-        </div>
-        <div class="student-item">
-          <i class="fas fa-user"></i>
-          <span>ليلى أحمد</span>
-        </div>
-        <div class="student-item">
-          <i class="fas fa-user"></i>
-          <span>سارة خالد</span>
-        </div>
-      </div>
+    <h1>الكتاب التفاعلي - الفيزياء للصف الثالث الثانوي</h1>
+    
+    <!-- محتوى الكتاب هنا -->
+    <div id="book-content">
+      <!-- سيتم تحميل صفحات الكتاب هنا -->
     </div>
 
-    <!-- المحتوى الرئيسي -->
-    <div class="main-content">
-      <!-- عنوان الصفحة -->
-      <div class="page-header">
-        <h1>مذكرة-الفيزياء</h1>
-      </div>
-
-      <!-- عرض الكتاب -->
-      <div class="book-container">
-        <div class="book-controls">
-          <div class="control-group">
-            <button class="control-btn" onclick="prevPage()">
-              <i class="fas fa-arrow-right"></i>
-            </button>
-            <button class="control-btn" onclick="nextPage()">
-              <i class="fas fa-arrow-left"></i>
-            </button>
-          </div>
-          
-          <div class="page-indicator">الصفحة 1 من 10</div>
-          
-          <div class="control-group">
-            <button class="control-btn" onclick="zoomIn()">
-              <i class="fas fa-search-plus"></i>
-            </button>
-            <button class="control-btn" onclick="zoomOut()">
-              <i class="fas fa-search-minus"></i>
-            </button>
-            <button class="control-btn" onclick="resetZoom()">
-              <i class="fas fa-expand"></i>
-            </button>
-          </div>
-        </div>
-
-        <div class="book-view">
-          <img id="bookImage" src="Emt7an-Rev/001.jpg" alt="صفحة الكتاب" style="transform: scale(1);">
-        </div>
-      </div>
-
-      <!-- قسم التعليقات -->
-      <div class="comments-section">
-        <div class="comments-header">
-          <h3>تعليقات الطلاب</h3>
-          <button class="control-btn" onclick="refreshComments()">
-            <i class="fas fa-sync-alt"></i>
-          </button>
-        </div>
-        
-        <!-- تعليقات فيسبوك المحسنة -->
-        <div class="fb-comments" 
-             data-href="https://mrfarag.github.io/MrFarag/" 
-             data-width="100%" 
-             data-numposts="10"
-             data-colorscheme="light"
-             data-order-by="reverse_time"
-             data-lazy="false">
-        </div>
-        
-        <!-- زر تسجيل الدخول البديل -->
-        <button class="fb-login-button" onclick="forceFBLogin()">
-          <i class="fab fa-facebook"></i> تسجيل دخول إلى فيسبوك للتعليق
-        </button>
-        
-        <div id="fb-login-status" style="margin-top:10px;color:#666;font-size:14px;"></div>
-      </div>
+    <!-- قسم تعليقات الفيسبوك -->
+    <div class="fb-comments" 
+         data-href="https://mrfarag.github.io/MrFarag/" 
+         data-width="100%" 
+         data-numposts="5"
+         data-colorscheme="light"
+         data-order-by="reverse_time">
     </div>
   </div>
 
-  <!-- SDK فيسبوك مع تحسينات -->
+  <!-- SDK فيسبوك مع إعدادات كاملة -->
   <div id="fb-root"></div>
   <script>
+    // تهيئة SDK فيسبوك
     window.fbAsyncInit = function() {
       FB.init({
-        appId      : '1465626834621893',
-        cookie     : true,
-        xfbml      : true,
-        version    : 'v19.0'
+        appId            : '1465626834621893',
+        autoLogAppEvents : true,
+        xfbml            : true,
+        version          : 'v19.0',
+        cookie           : true
       });
-        
-      FB.AppEvents.logPageView();   
       
-      // تحقق من حالة تسجيل الدخول عند التحميل
-      checkLoginState();
-      
-      // تحميل التعليقات بعد تحميل الصفحة
-      setTimeout(function(){
-        if(typeof FB !== 'undefined') {
-          FB.XFBML.parse();
-        }
-      }, 1500);
+      // تحميل التعليقات بعد التهيئة
+      FB.Event.subscribe('xfbml.render', function() {
+        console.log('تم تحميل تعليقات الفيسبوك');
+      });
     };
 
-    (function(d, s, id){
-       var js, fjs = d.getElementsByTagName(s)[0];
-       if (d.getElementById(id)) {return;}
-       js = d.createElement(s); js.id = id;
-       js.src = "https://connect.facebook.net/ar_AR/sdk.js";
-       js.async = true;
-       js.defer = true;
-       js.crossorigin = "anonymous";
-       fjs.parentNode.insertBefore(js, fjs);
-     }(document, 'script', 'facebook-jssdk'));
-     
-    // دالة تسجيل الدخول القسرية
-    function forceFBLogin() {
-      FB.login(function(response) {
-        if (response.authResponse) {
-          document.getElementById('fb-login-status').innerHTML = 
-            '<i class="fas fa-check-circle" style="color:green;"></i> تم تسجيل الدخول بنجاح! يمكنك الآن كتابة تعليقك';
-          FB.XFBML.parse(document.querySelector('.comments-section'));
-        } else {
-          document.getElementById('fb-login-status').innerHTML = 
-            '<i class="fas fa-times-circle" style="color:red;"></i> لم يتم تسجيل الدخول. يرجى المحاولة مرة أخرى';
-        }
-      }, {scope: 'public_profile,email'});
-    }
-    
-    // التحقق من حالة تسجيل الدخول
-    function checkLoginState() {
-      FB.getLoginStatus(function(response) {
-        if (response.status === 'connected') {
-          document.getElementById('fb-login-status').innerHTML = 
-            '<i class="fas fa-check-circle" style="color:green;"></i> أنت مسجل الدخول إلى فيسبوك';
-        }
-      });
+    // تحميل SDK بشكل غير متزامن
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "https://connect.facebook.net/ar_AR/sdk.js";
+      js.async = true;
+      js.defer = true;
+      js.crossOrigin = "anonymous";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    // دالة لإعادة تحميل التعليقات عند تغيير الصفحة
+    function reloadFBComments() {
+      if(typeof FB !== 'undefined') {
+        FB.XFBML.parse();
+      }
     }
   </script>
 
+  <!-- ملفات JavaScript الخاصة بالكتاب -->
   <script>
-    // تكوين الكتاب
-    const totalPages = 10;
-    let currentPage = 1;
-    let currentZoom = 1;
-
-    // تحديث صفحة الكتاب
-    function updatePage() {
-      const pageNum = currentPage.toString().padStart(3, '0');
-      document.getElementById('bookImage').src = `Emt7an-Rev/${pageNum}.jpg`;
-      document.querySelector('.page-indicator').textContent = `الصفحة ${currentPage} من ${totalPages}`;
-      
-      // إعادة ضبط التكبير عند تغيير الصفحة
-      currentZoom = 1;
-      document.getElementById('bookImage').style.transform = `scale(${currentZoom})`;
-      
-      // تحديث عنوان URL لتعليقات الفيسبوك عند تغيير الصفحة
-      updateFacebookCommentsUrl();
-      
-      // إعادة تحميل التعليقات
-      refreshComments();
-    }
-
-    // تحديث رابط تعليقات الفيسبوك ليشمل رقم الصفحة
-    function updateFacebookCommentsUrl() {
-      const newUrl = `https://mrfarag.github.io/MrFarag/?page=${currentPage}`;
-      const commentsDiv = document.querySelector('.fb-comments');
-      if(commentsDiv) {
-        commentsDiv.setAttribute('data-href', newUrl);
-      }
-    }
-
-    // التنقل بين الصفحات
-    function nextPage() {
-      if (currentPage < totalPages) {
-        currentPage++;
-        updatePage();
-      }
-    }
-
-    function prevPage() {
-      if (currentPage > 1) {
-        currentPage--;
-        updatePage();
-      }
-    }
-
-    // التحكم في التكبير/التصغير
-    function zoomIn() {
-      if (currentZoom < 3) {
-        currentZoom += 0.1;
-        applyZoom();
-      }
-    }
-
-    function zoomOut() {
-      if (currentZoom > 0.5) {
-        currentZoom -= 0.1;
-        applyZoom();
-      }
-    }
-
-    function resetZoom() {
-      currentZoom = 1;
-      applyZoom();
-    }
-
-    function applyZoom() {
-      document.getElementById('bookImage').style.transform = `scale(${currentZoom})`;
-    }
-
-    // تحديث التعليقات
-    function refreshComments() {
-      if(typeof FB !== 'undefined') {
-        FB.XFBML.parse(document.querySelector('.comments-section'));
-      }
-    }
-
-    // التنقل بلوحة المفاتيح
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowRight') prevPage();
-      if (e.key === 'ArrowLeft') nextPage();
-      if (e.key === '+') zoomIn();
-      if (e.key === '-') zoomOut();
-      if (e.key === '0') resetZoom();
-    });
-
-    // تهيئة الصفحة
+    // كود إدارة صفحات الكتاب هنا
     document.addEventListener('DOMContentLoaded', function() {
-      updatePage();
-      
-      // إضافة تأثير عند تحميل الصورة
-      document.getElementById('bookImage').onload = function() {
-        this.style.opacity = '0';
-        setTimeout(() => {
-          this.style.transition = 'opacity 0.5s ease';
-          this.style.opacity = '1';
-        }, 100);
-      };
-      
-      // تحديث رابط تعليقات الفيسبوك عند التحميل
-      updateFacebookCommentsUrl();
+      // تأكد من تحميل SDK قبل استخدامه
+      function checkFBLoaded() {
+        if(typeof FB !== 'undefined') {
+          FB.XFBML.parse();
+        } else {
+          setTimeout(checkFBLoaded, 500);
+        }
+      }
+      checkFBLoaded();
     });
   </script>
 </body>
