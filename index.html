@@ -6,7 +6,7 @@
   
   <!-- علامات Open Graph الأساسية -->
   <meta property="og:title" content="فيزياء 3 ث ">
-  <meta property="og:description" content="منصة تعليمية شاملة تحتوي على شرح تفاعلي لدروس الفيزياء للصف الثالث الثانوي">
+  <meta property="og:description" content="منصة تعليمية شاملة تحتوي على شرح تفاعلي لدروس الرياضيات للصف الثالث الإعدادي">
   <meta property="og:image" content="https://mrfarag.github.io/MrFarag/images/cover.jpg">
   <meta property="og:url" content="https://mrfarag.github.io/MrFarag/">
   <meta property="og:type" content="website">
@@ -231,6 +231,23 @@
       width: 100% !important;
     }
 
+    /* زر تسجيل الدخول البديل */
+    .fb-login-button {
+      background: #4267B2;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      margin-top: 10px;
+      display: inline-block;
+    }
+
+    .fb-login-button:hover {
+      background: #365899;
+    }
+
     /* تصميم متجاوب */
     @media (max-width: 992px) {
       .container {
@@ -302,7 +319,7 @@
     <div class="main-content">
       <!-- عنوان الصفحة -->
       <div class="page-header">
-        <h1>الكتاب التفاعلي - الفيزياء </h1>
+        <h1>الكتاب التفاعلي - الرياضيات</h1>
       </div>
 
       <!-- عرض الكتاب -->
@@ -353,8 +370,15 @@
              data-numposts="10"
              data-colorscheme="light"
              data-order-by="reverse_time"
-             data-lazy="true">
+             data-lazy="false">
         </div>
+        
+        <!-- زر تسجيل الدخول البديل -->
+        <button class="fb-login-button" onclick="forceFBLogin()">
+          <i class="fab fa-facebook"></i> تسجيل دخول إلى فيسبوك للتعليق
+        </button>
+        
+        <div id="fb-login-status" style="margin-top:10px;color:#666;font-size:14px;"></div>
       </div>
     </div>
   </div>
@@ -372,14 +396,15 @@
         
       FB.AppEvents.logPageView();   
       
+      // تحقق من حالة تسجيل الدخول عند التحميل
+      checkLoginState();
+      
       // تحميل التعليقات بعد تحميل الصفحة
-      document.addEventListener('DOMContentLoaded', function() {
-        setTimeout(function(){
-          if(typeof FB !== 'undefined') {
-            FB.XFBML.parse();
-          }
-        }, 1500);
-      });
+      setTimeout(function(){
+        if(typeof FB !== 'undefined') {
+          FB.XFBML.parse();
+        }
+      }, 1500);
     };
 
     (function(d, s, id){
@@ -392,6 +417,30 @@
        js.crossorigin = "anonymous";
        fjs.parentNode.insertBefore(js, fjs);
      }(document, 'script', 'facebook-jssdk'));
+     
+    // دالة تسجيل الدخول القسرية
+    function forceFBLogin() {
+      FB.login(function(response) {
+        if (response.authResponse) {
+          document.getElementById('fb-login-status').innerHTML = 
+            '<i class="fas fa-check-circle" style="color:green;"></i> تم تسجيل الدخول بنجاح! يمكنك الآن كتابة تعليقك';
+          FB.XFBML.parse(document.querySelector('.comments-section'));
+        } else {
+          document.getElementById('fb-login-status').innerHTML = 
+            '<i class="fas fa-times-circle" style="color:red;"></i> لم يتم تسجيل الدخول. يرجى المحاولة مرة أخرى';
+        }
+      }, {scope: 'public_profile,email'});
+    }
+    
+    // التحقق من حالة تسجيل الدخول
+    function checkLoginState() {
+      FB.getLoginStatus(function(response) {
+        if (response.status === 'connected') {
+          document.getElementById('fb-login-status').innerHTML = 
+            '<i class="fas fa-check-circle" style="color:green;"></i> أنت مسجل الدخول إلى فيسبوك';
+        }
+      });
+    }
   </script>
 
   <script>
