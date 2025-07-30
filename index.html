@@ -18,9 +18,12 @@
   
   <!-- علامات Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="افيزياء 3ث>
+  <meta name="twitter:title" content="افيزياء 3ث">
   <meta name="twitter:description" content="منصة تعليمية شاملة تحتوي على شرح تفاعلي لدروس الفيزياء">
   <meta name="twitter:image" content="https://mrfarag.github.io/MrFarag/images/cover.jpg">
+  
+  <!-- علامة تحقق فيسبوك -->
+  <meta property="fb:app_id" content="1465626834621893">
   
   <title>منصة تعليمية - كتاب تفاعلي</title>
   
@@ -216,6 +219,18 @@
       color: #2c3e50;
     }
 
+    /* تحسينات لتعليقات الفيسبوك */
+    .fb-comments {
+      margin-top: 15px;
+      background: #f9f9f9;
+      padding: 15px;
+      border-radius: 8px;
+    }
+
+    .fb-comments span {
+      width: 100% !important;
+    }
+
     /* تصميم متجاوب */
     @media (max-width: 992px) {
       .container {
@@ -241,6 +256,10 @@
       .page-indicator {
         font-size: 12px;
         padding: 5px 15px;
+      }
+      
+      .fb-comments {
+        padding: 10px;
       }
     }
   </style>
@@ -327,18 +346,20 @@
           </button>
         </div>
         
-        <!-- تعليقات فيسبوك -->
+        <!-- تعليقات فيسبوك المحسنة -->
         <div class="fb-comments" 
              data-href="https://mrfarag.github.io/MrFarag/" 
              data-width="100%" 
-             data-numposts="5"
-             data-colorscheme="light">
+             data-numposts="10"
+             data-colorscheme="light"
+             data-order-by="reverse_time"
+             data-lazy="true">
         </div>
       </div>
     </div>
   </div>
 
-  <!-- SDK فيسبوك -->
+  <!-- SDK فيسبوك مع تحسينات -->
   <div id="fb-root"></div>
   <script>
     window.fbAsyncInit = function() {
@@ -351,10 +372,14 @@
         
       FB.AppEvents.logPageView();   
       
-      // تحميل التعليقات فورياً
-      setTimeout(function(){
-        FB.XFBML.parse();
-      }, 1000);
+      // تحميل التعليقات بعد تحميل الصفحة
+      document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function(){
+          if(typeof FB !== 'undefined') {
+            FB.XFBML.parse();
+          }
+        }, 1500);
+      });
     };
 
     (function(d, s, id){
@@ -364,6 +389,7 @@
        js.src = "https://connect.facebook.net/ar_AR/sdk.js";
        js.async = true;
        js.defer = true;
+       js.crossorigin = "anonymous";
        fjs.parentNode.insertBefore(js, fjs);
      }(document, 'script', 'facebook-jssdk'));
   </script>
@@ -384,9 +410,19 @@
       currentZoom = 1;
       document.getElementById('bookImage').style.transform = `scale(${currentZoom})`;
       
-      // تحديث تعليقات فيسبوك عند تغيير الصفحة
-      if(typeof FB !== 'undefined') {
-        FB.XFBML.parse();
+      // تحديث عنوان URL لتعليقات الفيسبوك عند تغيير الصفحة
+      updateFacebookCommentsUrl();
+      
+      // إعادة تحميل التعليقات
+      refreshComments();
+    }
+
+    // تحديث رابط تعليقات الفيسبوك ليشمل رقم الصفحة
+    function updateFacebookCommentsUrl() {
+      const newUrl = `https://mrfarag.github.io/MrFarag/?page=${currentPage}`;
+      const commentsDiv = document.querySelector('.fb-comments');
+      if(commentsDiv) {
+        commentsDiv.setAttribute('data-href', newUrl);
       }
     }
 
@@ -432,7 +468,7 @@
     // تحديث التعليقات
     function refreshComments() {
       if(typeof FB !== 'undefined') {
-        FB.XFBML.parse();
+        FB.XFBML.parse(document.querySelector('.comments-section'));
       }
     }
 
@@ -457,6 +493,9 @@
           this.style.opacity = '1';
         }, 100);
       };
+      
+      // تحديث رابط تعليقات الفيسبوك عند التحميل
+      updateFacebookCommentsUrl();
     });
   </script>
 </body>
